@@ -48,6 +48,11 @@ def create_parser(subparsers=None):
         metavar='PATH',
         help="Output file for BPE codes (default: standard output)")
     parser.add_argument(
+        '--output_with_freq', type=argparse.FileType('w'),
+        metavar='PATH',
+        required=True,
+        help="Output file for BPE codes, with frequency")
+    parser.add_argument(
         '--symbols', '-s', type=int, default=10000,
         help="Create this many new symbols (each representing a character n-gram) (default: %(default)s))")
     parser.add_argument(
@@ -200,7 +205,7 @@ def prune_stats(stats, big_stats, threshold):
                 big_stats[item] = freq
 
 
-def learn_bpe(infile, outfile, num_symbols, min_frequency=2, verbose=False, is_dict=False, total_symbols=False):
+def learn_bpe(infile, outfile, outfile_with_freq, num_symbols, min_frequency=2, verbose=False, is_dict=False, total_symbols=False):
     """Learn num_symbols BPE operations from vocabulary, and write to outfile.
     """
 
@@ -249,6 +254,7 @@ def learn_bpe(infile, outfile, num_symbols, min_frequency=2, verbose=False, is_d
         if verbose:
             sys.stderr.write('pair {0}: {1} {2} -> {1}{2} (frequency {3})\n'.format(i, most_frequent[0], most_frequent[1], stats[most_frequent]))
         outfile.write('{0} {1}\n'.format(*most_frequent))
+        outfile_with_freq.write('{}\t{}\n'.format(''.join(most_frequent), stats[most_frequent]))
         changes = replace_pair(most_frequent, sorted_vocab, indices)
         update_pair_statistics(most_frequent, changes, stats, indices)
         stats[most_frequent] = 0
@@ -286,4 +292,4 @@ if __name__ == '__main__':
     if args.output.name != '<stdout>':
         args.output = codecs.open(args.output.name, 'w', encoding='utf-8')
 
-    learn_bpe(args.input, args.output, args.symbols, args.min_frequency, args.verbose, is_dict=args.dict_input, total_symbols=args.total_symbols)
+    learn_bpe(args.input, args.output, args.output_with_freq, args.symbols, args.min_frequency, args.verbose, is_dict=args.dict_input, total_symbols=args.total_symbols)
