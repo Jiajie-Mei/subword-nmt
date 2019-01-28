@@ -18,7 +18,7 @@ def load_vocab(obj_vocab_file):
     vocab = Counter()
     for line in obj_vocab_file:
         word, count = line.strip().split()
-        vocab.update({word: count})
+        vocab.update({word: int(count)})
     print('#words %d in %s' % (len(set(vocab)), obj_vocab_file.name))
     return vocab
 
