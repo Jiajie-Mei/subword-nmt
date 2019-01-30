@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 num_merges=${1}
-root_dir=${2}
+root_dir=/data/meijiajie/data_processing
 
 for data in LCSTS UGC
 do

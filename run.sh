@@ -15,4 +15,4 @@ done
 
 python ./subword_nmt/learn_bpe.py --output_with_freq codec_with_freq_${num_merges}.txt -s ${num_merges} < ${train_merged} > codec_${num_merges}.txt
 ./subword_nmt/get_vocab.py --input ${train_merged} --output vocab_${num_merges}.txt
-bash apply.sh ${num_merges} ${root_dir}
+bash apply.sh ${num_merges}
