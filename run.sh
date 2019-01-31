@@ -6,7 +6,7 @@ rm -rf codec*
 rm -rf vocab*
 
 root_dir=/data/meijiajie/data_processing
-train_merged=train_merged.txt
+train_merged=train_merged_${num_merges}.txt
 
 for data in LCSTS UGC
 do

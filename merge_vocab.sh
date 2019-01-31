@@ -3,7 +3,7 @@
 num_merges=${1}
 #target_dir=${2}
 
-target_vocab=vocab_merged.txt
+target_vocab=vocab_merged_${num_merges}.txt
 root_dir=/data/meijiajie/data_processing
 
 
