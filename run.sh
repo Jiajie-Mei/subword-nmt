@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 num_merges=${1}
 
-rm -rf train_*
-rm -rf codec*
-rm -rf vocab*
 
 root_dir=/data/meijiajie/data_processing
 train_merged=train_merged_${num_merges}.txt
