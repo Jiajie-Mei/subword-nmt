@@ -14,7 +14,7 @@ cd pointer-generator && git checkout master
 
 for data in LCSTS UGC
 do
-    for merge in 30000 35000 40000
+    for merge in 30000 40000
     do
 
         cd ${root_dir}/${data}/subworded_${merge}/
