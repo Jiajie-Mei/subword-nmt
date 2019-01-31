@@ -20,9 +20,11 @@ do
         cd ${root_dir}/${data}/subworded_${merge}/
         cp -r ${root_dir}/pointer-generator .
         cd pointer-generator && cp -r ../finished_files . && cd ..
+        rm -rf ${vanilla}
         cp -r pointer-generator ${vanilla} && cd ${vanilla}
         nohup bash run.sh ${train} ${eval1} ${data} nonselective &
         cd ..
+        rm -rf ${selective}
         cp -r pointer-generator ${selective} && cd ${selective}
         nohup bash run.sh ${train} ${eval1} ${data} selective &
         cd ..
