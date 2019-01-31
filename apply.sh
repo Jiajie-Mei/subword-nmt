@@ -8,8 +8,12 @@ do
     mkdir -p ${target_dir}
     for dataset in train val test
     do
-        nohup ./subword_nmt/apply_bpe.py -c codec_${num_merges}.txt \
-        < ${root_dir}/${data}/pg_select/merged_${dataset}.txt \
-        > ${target_dir}/subworded_${dataset}.txt &
+        ./subword_nmt/apply_bpe.py -c codec_${num_merges}.txt \
+        < ${root_dir}/${data}/original_data/merged_${dataset}.txt \
+        > ${target_dir}/subworded_${dataset}.txt
+        cp ${root_dir}/${data}/original_data/shops_${dataset}.txt ${target_dir}
     done
+    python make_datafiles.py ${target_dir}
 done
+
+bash merge_vocab.sh ${num_merges}
