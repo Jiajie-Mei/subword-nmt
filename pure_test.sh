@@ -24,6 +24,8 @@ do
             nohup bash ${pure_test} ${train} ${eval1} ${data} nonselective &
         fi
         cd ../${selective}
+        head -31 run.sh > ${pure_test} && tail -14 run.sh >> ${pure_test}
+        rm -rf log/mei/dec
         nohup bash ${pure_test} ${train} ${eval1} ${data} selective &
 
         let train=${train}%3+2
