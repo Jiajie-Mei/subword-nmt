@@ -19,7 +19,7 @@ do
         then
         echo skip $(pwd)
         else
-            head -31 run.sh > ${pure_test} && tail -14 run.sh >> ${pure_test}
+            head -33 run.sh > ${pure_test} && tail -14 run.sh >> ${pure_test}
             rm -rf log/mei/dec
             nohup bash ${pure_test} ${train} ${eval1} ${data} nonselective &
         fi
