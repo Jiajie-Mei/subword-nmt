@@ -44,5 +44,5 @@ for num_merges in list_num_merges:
             for ngram, str_metric, str_value in re.findall(pattern, single_line):
                 results[item2id[str_metric+ngram]] = str_value
 
-        results.insert(0, '%dk,%s' % (num_merges // 1000, selective[:3]))
+        results.insert(0, '%dk_%s' % (num_merges // 1000, selective[:3]))
         target_file.write('\n' + ','.join(results))
