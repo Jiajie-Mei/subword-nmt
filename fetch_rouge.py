@@ -6,7 +6,7 @@ import re
 
 dataset = sys.argv[1]
 
-root_dir = 'data/meijiajie/data_processing/'
+root_dir = '/data/meijiajie/data_processing/'
 list_num_merges = [30000, 40000]
 list_selective = ['vanilla', 'selective']
 
