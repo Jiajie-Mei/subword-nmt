@@ -32,7 +32,7 @@ for dir_ in possible_dir:
     if not os.path.exists(os.path.join(root_dir, dir_)):
         continue
     for selective in list_selective:
-        list_files = glob.glob(root_dir + '/%s' % dir + '/%s/log/mei/decode_test*/ROUGE_results.txt' % selective)
+        list_files = glob.glob(root_dir + '/%s' % dir_ + '/%s/log/mei/decode_test*/ROUGE_results.txt' % selective)
         results = ['-'] * (len(list_str_metric) * len(list_ngram))
         if len(list_files) == 0:
             pass
