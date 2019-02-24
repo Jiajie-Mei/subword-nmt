@@ -4,13 +4,11 @@ import sys
 import re
 
 
-dataset = sys.argv[1]
+root_dir = sys.argv[1]
 
-root_dir = '/data/meijiajie/data_processing/'
-list_num_merges = [30000, 40000]
-list_selective = ['vanilla', 'selective']
+list_selective = ['noselective', 'selective']
 
-target_file = open(os.path.join(root_dir, dataset, 'merged_rouge_results.csv'), 'w')
+target_file = open(os.path.join(root_dir, 'merged_rouge_results.csv'), 'w')
 
 list_str_metric = ['precision', 'recall', 'f_score']
 list_ngram = ['1', '2', 'l']
@@ -28,9 +26,13 @@ target_file.write(','.join(header))
 
 pattern = r'rouge_(\w)_(.*?): (\d+\.\d+)'
 
-for num_merges in list_num_merges:
+possible_dir = ['rnn_baseline', 'no_query', 'query_in_encoder', 'query_in_decoder', 'query_in_both']
+
+for dir_ in possible_dir:
+    if not os.path.exists(os.path.join(root_dir, dir_)):
+        continue
     for selective in list_selective:
-        list_files = glob.glob(root_dir + dataset + '/subworded_%d/%s/log/mei/decode_test*/ROUGE_results.txt' % (num_merges, selective))
+        list_files = glob.glob(root_dir + '/%s'.format(dir_) + '/%s/log/mei/decode_test*/ROUGE_results.txt' % selective)
         results = ['-'] * (len(list_str_metric) * len(list_ngram))
         if len(list_files) == 0:
             pass
@@ -44,5 +46,5 @@ for num_merges in list_num_merges:
             for ngram, str_metric, str_value in re.findall(pattern, single_line):
                 results[item2id[str_metric+ngram]] = str_value
 
-        results.insert(0, '%dk_%s' % (num_merges // 1000, selective[:3]))
+        results.insert(0, '%s_%s' % (dir_, selective))
         target_file.write('\n' + ','.join(results))
