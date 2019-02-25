@@ -16,11 +16,12 @@ list_ngram = ['1', '2', 'l']
 header = ['\\']
 item2id = dict()
 counter = 0
-for str_metric in list_str_metric:
-    for ngram in list_ngram:
-        header.append('ROUGE-%s-%s' % (str_metric, ngram))
-        item2id[str_metric+ngram] = counter
-        counter += 1
+
+for ngram in list_ngram:
+    for str_metric in list_str_metric:
+            header.append('ROUGE-%s-%s' % (ngram, str_metric))
+            item2id[ngram + str_metric] = counter
+            counter += 1
 
 target_file.write(','.join(header))
 
@@ -44,7 +45,7 @@ for dir_ in possible_dir:
                 exit(0)
             single_line = ' '.join([line.strip() for line in open(list_files[0], 'r').readlines()])
             for ngram, str_metric, str_value in re.findall(pattern, single_line):
-                results[item2id[str_metric+ngram]] = str_value
+                results[item2id[ngram + str_metric]] = str_value
 
         results.insert(0, '%s_%s' % (dir_, selective))
         target_file.write('\n' + ','.join(results))
